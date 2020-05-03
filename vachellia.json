@@ -1,0 +1,75 @@
+{
+    "components": [
+        {
+            "import_path": "src.shops.Shops",
+            "name": "Shops",
+            "crud_operations": {
+                "active": true,
+                "parameters": [
+                    {
+                        "parameter_value": "_id",
+                        "parameter_type": "str"
+                    },
+                    {
+                        "parameter_value": "name",
+                        "parameter_type": "str"
+                    }
+                ]
+            },
+            "methods": [
+                {
+                    "method_name": "test",
+                    "parameters": [
+                        {
+                            "parameter_value": "name",
+                            "parameter_type": "str"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "import_path": "src.images.Images",
+            "name": "Images",
+            "crud_operations": {
+                "active": true,
+                "parameters": [
+                    {
+                        "parameter_value": "_id",
+                        "parameter_type": "str"
+                    },
+                    {
+                        "parameter_value": "name",
+                        "parameter_type": "str"
+                    }
+                ]
+            },
+            "methods": [
+                {
+                    "method_name": "test",
+                    "parameters": [
+                        {
+                            "parameter_value": "name",
+                            "parameter_type": "str"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "databases": [
+        {
+            "type": "mongodb",
+            "name": "vachellia",
+            "url": "mongodb://192.168.0.99:27017/",
+            "default": true
+        },
+        {
+            "type": "mongodb",
+            "name": "test",
+            "url": "mongodb://192.168.0.99:27017/"
+        }
+    ],
+    "debug": true,
+    "name": "vachellia"
+}

@@ -1,0 +1,12 @@
+{
+    "python.pythonPath": "venv/bin/python",
+    "cSpell.words": [
+        "mongodb",
+        "objectid",
+        "pymongo",
+        "socketio",
+        "tablefmt",
+        "vachellia"
+    ],
+    "python.formatting.provider": "black"
+}
