@@ -1,55 +1,18 @@
 {
     "components": [
         {
-            "import_path": "src.shops.Shops",
-            "name": "Shops",
+            "import_path": "src.router.Router",
+            "name": "Router",
             "crud_operations": {
-                "active": true,
-                "parameters": [
-                    {
-                        "parameter_value": "_id",
-                        "parameter_type": "str"
-                    },
-                    {
-                        "parameter_value": "name",
-                        "parameter_type": "str"
-                    }
-                ]
+                "active": false,
+                "parameters": []
             },
             "methods": [
                 {
-                    "method_name": "test",
+                    "method_name": "goto",
                     "parameters": [
                         {
-                            "parameter_value": "name",
-                            "parameter_type": "str"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "import_path": "src.images.Images",
-            "name": "Images",
-            "crud_operations": {
-                "active": true,
-                "parameters": [
-                    {
-                        "parameter_value": "_id",
-                        "parameter_type": "str"
-                    },
-                    {
-                        "parameter_value": "name",
-                        "parameter_type": "str"
-                    }
-                ]
-            },
-            "methods": [
-                {
-                    "method_name": "test",
-                    "parameters": [
-                        {
-                            "parameter_value": "name",
+                            "parameter_value": "url",
                             "parameter_type": "str"
                         }
                     ]
@@ -63,11 +26,6 @@
             "name": "vachellia",
             "url": "mongodb://192.168.0.99:27017/",
             "default": true
-        },
-        {
-            "type": "mongodb",
-            "name": "test",
-            "url": "mongodb://192.168.0.99:27017/"
         }
     ],
     "debug": true,

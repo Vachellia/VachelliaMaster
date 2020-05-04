@@ -1,2 +1,1 @@
-from .images import Images
-from .shops import Shops
+from .router import Router
