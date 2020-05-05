@@ -3,7 +3,7 @@ import pika
 import base64
 from core import RemoteClass, RequestManager
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(host="localhost"))
+connection = pika.BlockingConnection(pika.ConnectionParameters(host="192.168.0.9"))
 channel = connection.channel()
 channel.queue_declare(queue="cell_1")
 

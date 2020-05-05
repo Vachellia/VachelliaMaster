@@ -3,7 +3,7 @@ from core.vachellia import Vachellia, get_json
 
 
 vachellia = Vachellia(get_json(r"vachellia.json"))
-connection = pika.BlockingConnection(pika.ConnectionParameters(host="localhost"))
+connection = pika.BlockingConnection(pika.ConnectionParameters(host="192.168.0.9"))
 channel = connection.channel()
 channel.queue_declare(queue="master")
 channel.queue_declare(queue="client")
