@@ -1,6 +1,11 @@
+import eventlet
+eventlet.monkey_patch()
+
 import pika
-from core.vachellia import Vachellia, get_json
+from flask import Flask
 from termcolor import colored
+from core.vachellia import Vachellia, get_json
+from flask_socketio import SocketIO, send, emit
 
 print(
     colored(
@@ -18,18 +23,30 @@ print(f"[ {colored('C TYPE', 'green')}  ] -> [ MASTER ]")
 print(f"[ {colored('VERSION', 'green')} ] -> [ 0.01 ]")
 
 vachellia = Vachellia(get_json(r"vachellia.json"))
-connection = pika.BlockingConnection(pika.ConnectionParameters(host="192.168.0.9"))
-channel = connection.channel()
-channel.queue_declare(queue="master")
-channel.queue_declare(queue="client")
+
+
+app = Flask(__name__)
+socketio = SocketIO(app)
+
+@socketio.on('request')
+def request(data):
+    out_data = vachellia.operate_request(data)
+    emit('response', out_data, namespace='/')
 
 
 def callback(ch, method, properties, in_data):
-    # print(f"[{colored('OK', 'green')}][callback][in_data] -> [ {in_data} ]")
     out_data = vachellia.operate_request(in_data)
-    channel.basic_publish(exchange="", routing_key="client", body=out_data)
+    socketio.emit('response', out_data, broadcast=True)
 
+def run_channel_listener():
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host="192.168.0.9"))
+    channel = connection.channel()
+    channel.queue_declare(queue="master")
+    channel.basic_consume(queue="master", on_message_callback=callback, auto_ack=True)
+    print(f"[ {colored('STARTED', 'green')} ] -> [ To exit press CTRL+C ]\n")
+    channel.start_consuming()
 
-channel.basic_consume(queue="master", on_message_callback=callback, auto_ack=True)
-print(f"[ {colored('STARTED', 'green')} ] -> [ To exit press CTRL+C ]")
-channel.start_consuming()
+eventlet.spawn(run_channel_listener)
+
+if __name__ == "__main__":
+    socketio.run(app)

@@ -1,11 +1,7 @@
 import json
-import pika
 import base64
 from core import RemoteClass, RequestManager
-
-connection = pika.BlockingConnection(pika.ConnectionParameters(host="192.168.0.9"))
-channel = connection.channel()
-channel.queue_declare(queue="cell_1")
+from termcolor import colored
 
 
 class Router(object):
@@ -14,23 +10,30 @@ class Router(object):
         self.request_manager = RequestManager()
 
     def goto(self, parameters):
+        print(
+            f"[{colored('OK', 'green')}][{colored(parameters[2], 'green')}] -> [Routing request data to /{parameters[0]}]", 
+        )
         self.new_request = self.request_manager.generate_request(parameters[2])
-        print("[Router][test][parameters] -> ", parameters)
         self.router = RemoteClass("Temp", self.new_request)
         for procedure_call in parameters[1]:
             self.router.append_procedure_call(procedure_call)
 
-        out_data = self.request_manager.compute_resolve(self.new_request, self.test2)
-        print("[Router][test][remote_request] -> ", out_data)
-        base64_out_data = base64.b64encode(json.dumps(out_data).encode())
-        channel.basic_publish(exchange="", routing_key="cell_1", body=base64_out_data)
-
         return {
             "status": "pending",
-            "data": "request sent to ",
+            "data": "routing request data",
             "class_name": self.class_instance_name,
+            "message_channel": parameters[0],
+            "message_host": "192.168.0.9",
+            "request": self.new_request,
+            "continue_method": self.goto_response,
         }
 
-    def test2(self, data):
-        print(f"[test2] ->", data)
-        return [data, data]
+    def goto_response(self, data):
+        print(
+            f"[{colored('OK', 'green')}][{colored(self.new_request.get_id(), 'green')}] -> [Routed request data responded]"
+        )
+        return {
+            "status": "success",
+            "data": data,
+            "class_name": self.class_instance_name,
+        }

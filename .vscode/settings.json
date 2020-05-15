@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "venv/bin/python",
+    "python.pythonPath": "/Users/nigelmatyukira/Documents/projects/vachellia/VachelliaMaster/venv/bin/python3.7",
     "cSpell.words": [
         "mongodb",
         "objectid",
