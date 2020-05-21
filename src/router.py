@@ -23,7 +23,7 @@ class Router(object):
             "data": "routing request data",
             "class_name": self.class_instance_name,
             "message_channel": parameters[0],
-            "message_host": "192.168.0.9",
+            "message_host": "localhost",
             "request": self.new_request,
             "continue_method": self.goto_response,
         }

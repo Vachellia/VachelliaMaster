@@ -26,7 +26,7 @@ vachellia = Vachellia(get_json(r"vachellia.json"))
 
 
 app = Flask(__name__)
-socketio = SocketIO(app)
+socketio = SocketIO(app, cors_allowed_origins="*", sameSite=None)
 
 @socketio.on('request')
 def request(data):
@@ -39,7 +39,7 @@ def callback(ch, method, properties, in_data):
     socketio.emit('response', out_data, broadcast=True)
 
 def run_channel_listener():
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host="192.168.0.9"))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host="localhost"))
     channel = connection.channel()
     channel.queue_declare(queue="master")
     channel.basic_consume(queue="master", on_message_callback=callback, auto_ack=True)
@@ -49,4 +49,4 @@ def run_channel_listener():
 eventlet.spawn(run_channel_listener)
 
 if __name__ == "__main__":
-    socketio.run(app)
+    socketio.run(app, host="0.0.0.0")
