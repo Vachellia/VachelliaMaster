@@ -29,5 +29,9 @@
         }
     ],
     "debug": true,
-    "name": "vachellia"
+    "name": "master",
+    "version": "0.01",
+    "pika_host": "rabbitmq",
+    "socket_host": "0.0.0.0",
+    "socket_port": 9000
 }
