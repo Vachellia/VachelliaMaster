@@ -1,8 +1,10 @@
 import json
 import base64
 from core import RemoteClass, RequestManager
+from core.vachellia import Vachellia, get_json
 from termcolor import colored
 
+vachellia_json = get_json(r"vachellia.json")
 
 class Router(object):
     def __init__(self):
@@ -23,7 +25,7 @@ class Router(object):
             "data": "routing request data",
             "class_name": self.class_instance_name,
             "message_channel": parameters[0],
-            "message_host": "localhost",
+            "message_host": vachellia_json["pika_host"],
             "request": self.new_request,
             "continue_method": self.goto_response,
         }

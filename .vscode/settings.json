@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/Users/nigelmatyukira/Documents/projects/vachellia/VachelliaMaster/venv/bin/python3.7",
+    "python.pythonPath": "env/bin/python",
     "cSpell.words": [
         "healthcheck",
         "mongodb",

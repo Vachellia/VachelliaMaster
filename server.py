@@ -12,7 +12,6 @@ from flask_socketio import SocketIO, send, emit
 
 app = Flask(__name__)
 vachellia_json = get_json(r"vachellia.json")
-print(vachellia_json)
 vachellia = Vachellia(vachellia_json)
 socketio = SocketIO(app, cors_allowed_origins="*", sameSite=None)
 
@@ -61,7 +60,7 @@ def run_channel_listener():
     except Exception as error:
         print(error)
         print(f"[ {colored('PIKA FAILED', 'red')} ] -> [ {vachellia_json['pika_host']} ]")
-        sys.exit(1)
+        # sys.exit(1)
 
 eventlet.spawn(run_channel_listener)
 
